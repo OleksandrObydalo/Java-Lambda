@@ -27,10 +27,24 @@ public class LambdaExample {
             doubleList.add(i);
         }
 
-        processElements(intList,  x -> Math.sin(x.doubleValue()));
+        processElements(intList, LambdaExample::multiply);
         processElements(doubleList, x -> Math.sin(x.doubleValue()));
 
         TimeUtil.measure(() -> Arrays.sort(createRandomArray(10000000, 1000000)));
+
+        String s = "Hello ";
+        Double d = 0.001;
+
+        TransformUtils<Double> doubleUtils = new TransformUtils<>();
+        System.out.println(doubleUtils.transform(d, Math::sin));
+
+        TransformUtils<String> stringUtils = new TransformUtils<>();
+        System.out.println(stringUtils.transform(s, TransformUtils::exclaim));
+
+        String suffix = "Alex!";
+        System.out.println(stringUtils.transform(suffix, s::concat));
+
+
 
 
     }
@@ -44,8 +58,8 @@ public class LambdaExample {
         System.out.println(doubleList);
     }
 
-    private static double multiply(int x, int y){
-        return x * y / 10.0;
+    private static double multiply(Number x){
+        return x.doubleValue() * 10.0;
     }
 
     private static int[] createRandomArray(int length, int max){
