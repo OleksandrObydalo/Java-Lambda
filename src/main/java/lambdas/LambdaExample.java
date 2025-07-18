@@ -1,11 +1,18 @@
 package lambdas;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 @FunctionalInterface
 interface ElementProcessor<T extends Number>{
     public double process(T element1);
+}
+
+@FunctionalInterface
+interface ExecutiveFunction{
+    void process();
 }
 
 public class LambdaExample {
@@ -23,6 +30,8 @@ public class LambdaExample {
         processElements(intList,  x -> Math.sin(x.doubleValue()));
         processElements(doubleList, x -> Math.sin(x.doubleValue()));
 
+        TimeUtil.measure(() -> Arrays.sort(createRandomArray(10000000, 1000000)));
+
 
     }
 
@@ -37,5 +46,23 @@ public class LambdaExample {
 
     private static double multiply(int x, int y){
         return x * y / 10.0;
+    }
+
+    private static int[] createRandomArray(int length, int max){
+        int[] array = new int[length];
+        Random r = new Random();
+        for(int i = 0; i < array.length; i++){
+            array[i] = r.nextInt(max);
+        }
+        return array;
+    }
+
+    public static class TimeUtil{
+        private static void measure(Runnable function){
+            long start = System.currentTimeMillis();
+            function.run();
+            long end = System.currentTimeMillis();
+            System.out.println("Time spent: " + (end - start) + " milliseconds");
+        }
     }
 }
