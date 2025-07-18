@@ -1,6 +1,6 @@
 package lambdas;
 
-public class Player {
+public class Player implements Comparable<Player> {
     protected String name;
     protected int score;
 
@@ -23,5 +23,18 @@ public class Player {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "name='" + name + '\'' +
+                ", score=" + score +
+                '}';
+    }
+
+    @Override
+    public int compareTo(Player o) {
+        return score - o.score;
     }
 }
