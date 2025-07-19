@@ -30,7 +30,7 @@ public class LambdaExample {
         processElements(intList, LambdaExample::multiply);
         processElements(doubleList, x -> Math.sin(x.doubleValue()));
 
-        TimeUtil.measure(() -> Arrays.sort(createRandomArray(10000000, 1000000)));
+//        TimeUtil.measure(() -> Arrays.sort(createRandomArray(10000000, 1000000)));
 
         String s = "Hello ";
         Double d = 0.001;
@@ -43,6 +43,10 @@ public class LambdaExample {
 
         String suffix = "Alex!";
         System.out.println(stringUtils.transform(suffix, s::concat));
+
+        System.out.println(stringUtils.transform(s, String::toUpperCase));
+
+        System.out.println(stringUtils.transform(s, String::new));
 
 
 

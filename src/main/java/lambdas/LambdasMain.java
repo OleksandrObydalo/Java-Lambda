@@ -39,5 +39,9 @@ public class LambdasMain {
 
         thread.run();
 
+        LambdaScopeTest scope = new LambdaScopeTest();
+        LambdaScopeTest.LambdaScopeInner inner = scope.new LambdaScopeInner();
+        inner.testScope(9999.999);
+
     }
 }
