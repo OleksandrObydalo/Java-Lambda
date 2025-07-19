@@ -2,6 +2,7 @@ package lambdas;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -31,6 +32,13 @@ public class LambdaFunctionExample {
         System.out.println("Sum of salaries = " + employees.stream().mapToInt(Employee::getSalary).sum());
         System.out.println("Sum of ages = " + people.stream().mapToInt(Person::getAge).sum());
 
+        BinaryOperator<Integer> combiner = (n1,n2) -> n1 + n2;
+        Integer zeroElement = 0;
+        System.out.println("Combined salary = " + combine(employees, zeroElement, Employee::getSalary, combiner));
+
+        System.out.println("Total salary = " + combine(employees, zeroElement, Employee::getSalary, Integer::sum));
+        System.out.println("Maximal salary = " + combine(employees, zeroElement, Employee::getSalary, Math::max));
+
     }
 
     private static <T> T findMatch(List<T> elements, Predicate<T> predicateFunction){
@@ -48,5 +56,13 @@ public class LambdaFunctionExample {
             sum += function.apply(e);
         }
         return sum;
+    }
+
+    private static <T, R> R combine(List<T> elements, R zeroElement, Function<T, R> function, BinaryOperator<R> combiner){
+        int sum = 0;
+        for(T e: elements){
+            zeroElement = combiner.apply(zeroElement, function.apply(e));
+        }
+        return zeroElement;
     }
 }
