@@ -32,12 +32,21 @@ public class LambdaFunctionExample {
         System.out.println("Sum of salaries = " + employees.stream().mapToInt(Employee::getSalary).sum());
         System.out.println("Sum of ages = " + people.stream().mapToInt(Person::getAge).sum());
 
+        // Binary Operator
         BinaryOperator<Integer> combiner = (n1,n2) -> n1 + n2;
         Integer zeroElement = 0;
         System.out.println("Combined salary = " + combine(employees, zeroElement, Employee::getSalary, combiner));
 
         System.out.println("Total salary = " + combine(employees, zeroElement, Employee::getSalary, Integer::sum));
         System.out.println("Maximal salary = " + combine(employees, zeroElement, Employee::getSalary, Math::max));
+        System.out.println("Minimal salary = " + combine(employees, 100000000, Employee::getSalary, Math::min));
+
+        // Consumer
+        employees.forEach(e->e.setSalary(e.getSalary()*11/10));
+        employees.forEach(System.out::println);
+
+        //Supplier
+
 
     }
 
