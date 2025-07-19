@@ -3,12 +3,12 @@ package lambdas;
 public class Person {
     protected String firstName;
     protected String lastName;
-    protected double salary;
+    protected int age;
 
-    public Person(String firstName, String lastName, double salary) {
+    public Person(String firstName, String lastName, int age) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.salary = salary;
+        this.age = age;
     }
 
     public String getFirstName() {
@@ -27,11 +27,11 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public double getSalary() {
-        return salary;
+    public int getAge() {
+        return age;
     }
 
-    public void setSalary(double salary) {
-        this.salary = salary;
+    public void setAge(int age) {
+        this.age = age;
     }
 }
