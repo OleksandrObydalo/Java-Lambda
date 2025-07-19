@@ -1,18 +1,18 @@
 package lambdas;
 
 public class Employee extends Person {
-    protected double salary;
+    protected int salary;
 
-    public Employee(String firstName, String lastName, int age, double salary) {
+    public Employee(String firstName, String lastName, int age, int salary) {
         super(firstName, lastName, age);
         this.salary = salary;
     }
 
-    public double getSalary() {
+    public int getSalary() {
         return salary;
     }
 
-    public void setSalary(double salary) {
+    public void setSalary(int salary) {
         this.salary = salary;
     }
 

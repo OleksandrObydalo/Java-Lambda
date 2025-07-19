@@ -2,6 +2,7 @@ package lambdas;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class LambdaFunctionExample {
@@ -18,8 +19,18 @@ public class LambdaFunctionExample {
         people.add(new Person("Jam", "Brown", 32));
         people.add(new Person("Nicola", "Tesla", 34));
 
-        System.out.println(findMatch(employees, e->e.getSalary() > 80000));
-        System.out.println(findMatch(people, p -> p.getAge() > 32));
+        // Predicate
+        System.out.println(findMatch(employees, e->e.getSalary() > 70000));
+        System.out.println(findMatch(people, p -> p.getAge() > 30));
+
+        // Function
+        System.out.println("Sum of salaries = " + calcSum(employees, Employee::getSalary));
+        System.out.println("Sum of ages = " + calcSum(people, Person::getAge));
+
+        // Function (using stream)
+        System.out.println("Sum of salaries = " + employees.stream().mapToInt(Employee::getSalary).sum());
+        System.out.println("Sum of ages = " + people.stream().mapToInt(Person::getAge).sum());
+
     }
 
     private static <T> T findMatch(List<T> elements, Predicate<T> predicateFunction){
@@ -29,5 +40,13 @@ public class LambdaFunctionExample {
             }
         }
         return null;
+    }
+
+    private static <T> int calcSum(List<T> elements, Function<T, Integer> function){
+        int sum = 0;
+        for(T e: elements){
+            sum += function.apply(e);
+        }
+        return sum;
     }
 }
