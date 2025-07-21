@@ -1,5 +1,9 @@
 package streams;
 import lambdas.Employee;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -21,25 +25,26 @@ public class StreamOverviewMain {
         employeeList.add(new Employee(10, "Mike", "Yellow", 42, 60000));
         employeeList.add(new Employee(11, "Victoria", "Pink", 32, 75000));
 
-        testStreamFromList();
+//        testStreamFromList();
+        testStreamFromFile();
     }
 
     private static void testStreamFromList() {
-//        employeeList.stream()
-//                .filter(e -> e.getSalary() > 60000)
-//                .filter(e -> e.getId() > 10)
-//                .forEach(System.out::println);
+        employeeList.stream()
+                .filter(e -> e.getSalary() > 60000)
+                .filter(e -> e.getId() > 10)
+                .forEach(System.out::println);
 
         Integer[] ids = new Integer[20];
         for(int i = 0; i < ids.length; i++){
             ids[i] = i + 1;
         }
 
-//        Stream.of(ids)
-//                .map(StreamOverviewMain::findById)
-//                .filter(Objects::nonNull)
-//                .collect(Collectors.toList())
-//                .forEach(System.out::println);
+        Stream.of(ids)
+                .map(StreamOverviewMain::findById)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList())
+                .forEach(System.out::println);
 
         Optional<Employee> first = Stream.of(ids)
                 .map(StreamOverviewMain::findById)
@@ -48,6 +53,18 @@ public class StreamOverviewMain {
 
         System.out.println("first = " + first);
         System.out.println("first.get() =" +first.get());
+    }
+
+    private static void testStreamFromFile() {
+        try {
+            Files.lines(Paths.get("words.txt"))
+                    .filter(e -> e.length() > 4)
+                    .map(String::toUpperCase)
+                    .distinct()
+                    .forEach(System.out::println);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private static Employee findById(int id){
