@@ -1,6 +1,6 @@
 package shapes;
 
-public class Circle implements Shape{
+public class Circle extends Ellipsis{
     public Circle() {
         System.out.println("Creating circle");
     }
@@ -9,4 +9,5 @@ public class Circle implements Shape{
     public double calcArea() {
         return 1;
     }
+
 }

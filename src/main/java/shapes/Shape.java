@@ -12,4 +12,8 @@ public interface Shape {
         }
         return areaSum;
    }
+
+   default double calcSomething(){
+       return 1;
+   }
 }

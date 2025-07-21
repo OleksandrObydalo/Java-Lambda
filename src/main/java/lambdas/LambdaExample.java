@@ -1,5 +1,7 @@
 package lambdas;
 
+import shapes.Circle;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -37,7 +39,7 @@ public class LambdaExample {
 //        processElements(intList, LambdaExample::multiply);
 //        processElements(doubleList, x -> Math.sin(x.doubleValue()));
 
-        Operation.measure(() -> Arrays.sort(createRandomArray(10000000, 1000000)));
+//        Operation.measure(() -> Arrays.sort(createRandomArray(10000000, 1000000)));
 
 //        String s = "Hello ";
 //        Double d = 0.001;
@@ -54,6 +56,9 @@ public class LambdaExample {
 //        System.out.println(stringUtils.transform(s, String::toUpperCase));
 //
 //        System.out.println(stringUtils.transform(s, String::new));
+
+        Circle c = new Circle();
+        System.out.println(c.calcSomething());
 
 
 
