@@ -47,8 +47,27 @@ public class HigherOrderFunctionExample {
         Function<Employee, String> name = x -> x.getFirstName() + " " + x.getLastName();
         Function<String, String> sayHello = y -> "Hello " + y;
         Function<Employee, String> composedFunction = sayHello.compose(name);
-        transform(employees, composedFunction).forEach(System.out::println);
+        List<String> transformedList = transform(employees, composedFunction);
+        transformedList.forEach(System.out::println);
+
+        Function<String, String> exlaim = z -> z + "!!!";
+        Function<String, String> toUpper = String::toUpperCase;
+        Function<String, String> repeat = z -> z + " " + z;
+        transform(transformedList, compose(repeat, exlaim, toUpper)).forEach(System.out::println);
+
+
     }
+
+    private static <T> Function<T,T> compose(Function<T,T>... functions){
+        Function<T,T> composed = Function.identity();
+        for(Function<T,T> function: functions) {
+            composed = composed.compose(function);
+        }
+
+        return composed;
+
+    }
+
 
     private static <T,R> List<R> transform(List<T> elements, Function<T, R> function){
         List<R> transformedList = new ArrayList<>();
