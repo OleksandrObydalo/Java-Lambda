@@ -1,6 +1,6 @@
 package shapes;
 
-public class Ellipsis implements Shape{
+public class Ellipsis implements Shape, AnotherShape{
 
     @Override
     public double calcArea() {
@@ -9,6 +9,6 @@ public class Ellipsis implements Shape{
 
     @Override
     public double calcSomething() {
-        return 0.01;
+        return Shape.super.calcSomething();
     }
 }

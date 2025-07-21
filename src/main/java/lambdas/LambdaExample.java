@@ -22,6 +22,13 @@ interface Operation {
         long end = System.currentTimeMillis();
         System.out.println("Time spent: " + (end - start) + " milliseconds");
     }
+
+    default Operation combineOperation(Operation that){
+        return () -> {
+            process();
+            that.process();
+        };
+    }
 }
 
 public class LambdaExample {
@@ -39,7 +46,9 @@ public class LambdaExample {
 //        processElements(intList, LambdaExample::multiply);
 //        processElements(doubleList, x -> Math.sin(x.doubleValue()));
 
-//        Operation.measure(() -> Arrays.sort(createRandomArray(10000000, 1000000)));
+        Operation operation1 = () -> Arrays.sort(createRandomArray(10000000, 1000000));
+        Operation operation2 = () -> Arrays.sort(createRandomArray(10000000, 1000000));
+        Operation.measure(operation1.combineOperation(operation2));
 
 //        String s = "Hello ";
 //        Double d = 0.001;
