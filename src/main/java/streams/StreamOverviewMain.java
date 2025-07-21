@@ -35,11 +35,19 @@ public class StreamOverviewMain {
             ids[i] = i + 1;
         }
 
-        Stream.of(ids)
+//        Stream.of(ids)
+//                .map(StreamOverviewMain::findById)
+//                .filter(Objects::nonNull)
+//                .collect(Collectors.toList())
+//                .forEach(System.out::println);
+
+        Optional<Employee> first = Stream.of(ids)
                 .map(StreamOverviewMain::findById)
                 .filter(Objects::nonNull)
-                .collect(Collectors.toList())
-                .forEach(System.out::println);
+                .findFirst();
+
+        System.out.println("first = " + first);
+        System.out.println("first.get() =" +first.get());
     }
 
     private static Employee findById(int id){
