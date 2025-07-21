@@ -61,32 +61,43 @@ public class StreamOverviewMain {
 //                .collect(Collectors.toList())
 //                .forEach(System.out::println);
 //
-//        Optional<Employee> first = Stream.of(ids)
-//                .map(StreamOverviewMain::findById)
-//                .filter(Objects::nonNull)
-//                .findFirst();
+        Optional<Employee> first = Stream.of(ids)
+                .map(StreamOverviewMain::findById)
+                .filter(Objects::nonNull)
+                .findFirst();
+
+        Random r = new Random();
+        Integer id = Stream.of(ids)
+                .filter(i->i%2==0)
+                .filter(i->i%3==0)
+                .filter(i->i%5==0)
+                .findFirst().orElseGet(() -> r.nextInt(5)*30);
+
+        System.out.println("id = " + id);
 //
 //        System.out.println("first = " + first);
 //        System.out.println("first.get() =" +first.get());
 
-        int sum = Stream.of(ids)
-                .map(StreamOverviewMain::findById)
-                .filter(Objects::nonNull)
-                .mapToInt(Employee::getSalary)
-                .sum();
+//        int sum = Stream.of(ids)
+//                .map(StreamOverviewMain::findById)
+//                .filter(Objects::nonNull)
+//                .mapToInt(Employee::getSalary)
+//                .sum();
+//
+//        System.out.println("Sum of salaries = " + sum);
+//
+//        List<List<Employee>> departments = new ArrayList<>();
+//        departments.add(employeeList);
+//        departments.add(secondList);
+//
+//        departments.stream().flatMap(l->l.stream().map(e->e.getFirstName())).forEach(System.out::println);
 
-        System.out.println("Sum of salaries = " + sum);
-
-        List<List<Employee>> departments = new ArrayList<>();
-        departments.add(employeeList);
-        departments.add(secondList);
-
-        departments.stream().flatMap(l->l.stream().map(e->e.getFirstName())).forEach(System.out::println);
-
-        int sum1 = 0;
+        /*int sum1 = 0;
         Consumer<Integer> consumer = e -> e = e * 2;
         Stream.of(ids)
-                .peek(consumer).forEach(System.out::println);
+                .peek(consumer).forEach(System.out::println);*/
+
+
 
     }
 
