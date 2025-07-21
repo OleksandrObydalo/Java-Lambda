@@ -16,7 +16,7 @@ public class HigherOrderFunctionExample {
 
         testPredicate(employees);
         testFunction(employees);
-        testConsumer(employees);
+        testConsumer(employees, x -> x.setSalary(x.getSalary() * 11 / 10));
 
     }
     private static void testPredicate(List<Employee> employees){
@@ -82,10 +82,9 @@ public class HigherOrderFunctionExample {
 //        return elements.stream().map(function).toList();
     }
 
-    private static void testConsumer(List<Employee> employees){
+    private static void testConsumer(List<Employee> employees, Consumer<Employee> consumer){
         System.out.println("Testing consumer");
-        Consumer<Employee> rise = x -> x.setSalary(x.getSalary() * 11 / 10);
-        processList(employees, rise.andThen(System.out::println));
+        processList(employees, consumer.andThen(System.out::println));
 
     }
 
