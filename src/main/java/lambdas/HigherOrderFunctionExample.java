@@ -2,6 +2,7 @@ package lambdas;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -15,6 +16,7 @@ public class HigherOrderFunctionExample {
 
         testPredicate(employees);
         testFunction(employees);
+        testConsumer(employees);
 
     }
     private static void testPredicate(List<Employee> employees){
@@ -79,4 +81,20 @@ public class HigherOrderFunctionExample {
         // Code higher can be replaced by code lower
 //        return elements.stream().map(function).toList();
     }
+
+    private static void testConsumer(List<Employee> employees){
+        System.out.println("Testing consumer");
+        Consumer<Employee> rise = x -> x.setSalary(x.getSalary() * 11 / 10);
+        processList(employees, rise.andThen(System.out::println));
+
+    }
+
+    private static <T> void  processList(List<T> elements, Consumer<T> consumer) {
+        for(T e: elements){
+            consumer.accept(e);
+        }
+    }
+
+
+
 }
