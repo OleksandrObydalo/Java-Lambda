@@ -25,10 +25,10 @@ public class StreamOverviewMain {
     }
 
     private static void testStreamFromList() {
-        employeeList.stream()
-                .filter(e -> e.getSalary() > 60000)
-                .filter(e -> e.getId() > 10)
-                .forEach(System.out::println);
+//        employeeList.stream()
+//                .filter(e -> e.getSalary() > 60000)
+//                .filter(e -> e.getId() > 10)
+//                .forEach(System.out::println);
 
         Integer[] ids = new Integer[20];
         for(int i = 0; i < ids.length; i++){
@@ -37,6 +37,7 @@ public class StreamOverviewMain {
 
         Stream.of(ids)
                 .map(StreamOverviewMain::findById)
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList())
                 .forEach(System.out::println);
     }
