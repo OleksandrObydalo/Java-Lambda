@@ -35,10 +35,10 @@ public class StreamOverviewMain {
             ids[i] = i + 1;
         }
 
-//        Stream.of(ids)
-//                .map(StreamOverviewMain::findById)
-//                .collect(Collectors.toList())
-//                .forEach(System.out::println);
+        Stream.of(ids)
+                .map(StreamOverviewMain::findById)
+                .collect(Collectors.toList())
+                .forEach(System.out::println);
     }
 
     private static Employee findById(int id){
