@@ -1,10 +1,16 @@
 package lambdas;
 
+import shapes.Circle;
+import shapes.Rectangle;
+import shapes.Square;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class LambdaFunctionExample {
     public static void main(String[] args) {
@@ -45,8 +51,14 @@ public class LambdaFunctionExample {
         employees.forEach(e->e.setSalary(e.getSalary()*11/10));
         employees.forEach(System.out::println);
 
-        //Supplier
-
+        // Supplier
+        Supplier[] shapes = {Circle::new, Rectangle::new, Square::new};
+        Random random = new Random();
+        for(int i = 0; i < 5; i++){
+            int index = random.nextInt(shapes.length);
+            Supplier supplier = shapes[index];
+            supplier.get();
+        }
 
     }
 

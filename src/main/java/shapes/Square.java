@@ -1,7 +1,12 @@
 package shapes;
 
-public class Square extends Shape{
-    public Square() {
-        System.out.println("Creating square");
+import java.util.List;
+
+public class Square implements Shape{
+
+
+    @Override
+    public double calcArea() {
+        return 2;
     }
 }
