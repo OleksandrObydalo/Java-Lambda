@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -81,9 +82,11 @@ public class StreamOverviewMain {
         departments.add(secondList);
 
         departments.stream().flatMap(l->l.stream().map(e->e.getFirstName())).forEach(System.out::println);
+
+        int sum1 = 0;
+        Consumer<Integer> consumer = e -> e = e * 2;
         Stream.of(ids)
-                .peek(e->e=e*2)
-                .forEach(System.out::println);
+                .peek(consumer).forEach(System.out::println);
 
     }
 
