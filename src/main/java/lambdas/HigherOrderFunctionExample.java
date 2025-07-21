@@ -2,6 +2,7 @@ package lambdas;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class HigherOrderFunctionExample {
@@ -13,6 +14,8 @@ public class HigherOrderFunctionExample {
         employees.add(new Employee("Tony", "Grey", 23, 90000));
 
         testPredicate(employees);
+        testFunction(employees);
+
     }
     private static void testPredicate(List<Employee> employees){
         System.out.println("Testing predicate...");
@@ -29,6 +32,32 @@ public class HigherOrderFunctionExample {
 
     private static <T> List<T> findAll(List<T> elements, Predicate<T> predicate){
 
-        return elements.stream().filter(predicate).toList();
+        List<T> filteedList = new ArrayList<>();
+        for(T elewent: elements){
+            if(predicate.test(elewent)) filteedList.add(elewent);
+        }
+        return filteedList;
+
+        // Code higher can be replaced by code lower
+//      return elements.stream().filter(predicate).toList();
+    }
+
+    private static void testFunction(List<Employee> employees){
+        System.out.println("Testing function");
+        Function<Employee, String> name = x -> x.getFirstName() + " " + x.getLastName();
+        Function<String, String> sayHello = y -> "Hello " + y;
+        Function<Employee, String> composedFunction = sayHello.compose(name);
+        transform(employees, composedFunction).forEach(System.out::println);
+    }
+
+    private static <T,R> List<R> transform(List<T> elements, Function<T, R> function){
+        List<R> transformedList = new ArrayList<>();
+        for(T elewent: elements){
+            transformedList.add(function.apply(elewent));
+        }
+        return transformedList;
+
+        // Code higher can be replaced by code lower
+//        return elements.stream().map(function).toList();
     }
 }
