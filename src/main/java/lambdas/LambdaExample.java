@@ -11,42 +11,49 @@ interface ElementProcessor<T extends Number>{
 }
 
 @FunctionalInterface
-interface ExecutiveFunction{
+interface Operation {
     void process();
+
+    static void measure(Operation function){
+        long start = System.currentTimeMillis();
+        function.process();
+        long end = System.currentTimeMillis();
+        System.out.println("Time spent: " + (end - start) + " milliseconds");
+    }
 }
 
 public class LambdaExample {
     public static void main(String[] args) {
-        List<Integer> intList = new ArrayList<>();
-        for(int i = 1; i < 5; i++){
-            intList.add(i);
-        }
+//        List<Integer> intList = new ArrayList<>();
+//        for(int i = 1; i < 5; i++){
+//            intList.add(i);
+//        }
+//
+//        List<Double> doubleList = new ArrayList<>();
+//        for(double i = 1.1; i < 6; i+=1){
+//            doubleList.add(i);
+//        }
+//
+//        processElements(intList, LambdaExample::multiply);
+//        processElements(doubleList, x -> Math.sin(x.doubleValue()));
 
-        List<Double> doubleList = new ArrayList<>();
-        for(double i = 1.1; i < 6; i+=1){
-            doubleList.add(i);
-        }
+        Operation.measure(() -> Arrays.sort(createRandomArray(10000000, 1000000)));
 
-        processElements(intList, LambdaExample::multiply);
-        processElements(doubleList, x -> Math.sin(x.doubleValue()));
-
-//        TimeUtil.measure(() -> Arrays.sort(createRandomArray(10000000, 1000000)));
-
-        String s = "Hello ";
-        Double d = 0.001;
-
-        TransformUtils<Double> doubleUtils = new TransformUtils<>();
-        System.out.println(doubleUtils.transform(d, Math::sin));
-
-        TransformUtils<String> stringUtils = new TransformUtils<>();
-        System.out.println(stringUtils.transform(s, TransformUtils::exclaim));
-
-        String suffix = "Alex!";
-        System.out.println(stringUtils.transform(suffix, s::concat));
-
-        System.out.println(stringUtils.transform(s, String::toUpperCase));
-
-        System.out.println(stringUtils.transform(s, String::new));
+//        String s = "Hello ";
+//        Double d = 0.001;
+//
+//        TransformUtils<Double> doubleUtils = new TransformUtils<>();
+//        System.out.println(doubleUtils.transform(d, Math::sin));
+//
+//        TransformUtils<String> stringUtils = new TransformUtils<>();
+//        System.out.println(stringUtils.transform(s, TransformUtils::exclaim));
+//
+//        String suffix = "Alex!";
+//        System.out.println(stringUtils.transform(suffix, s::concat));
+//
+//        System.out.println(stringUtils.transform(s, String::toUpperCase));
+//
+//        System.out.println(stringUtils.transform(s, String::new));
 
 
 
@@ -73,14 +80,5 @@ public class LambdaExample {
             array[i] = r.nextInt(max);
         }
         return array;
-    }
-
-    public static class TimeUtil{
-        private static void measure(Runnable function){
-            long start = System.currentTimeMillis();
-            function.run();
-            long end = System.currentTimeMillis();
-            System.out.println("Time spent: " + (end - start) + " milliseconds");
-        }
     }
 }
